@@ -1,6 +1,9 @@
 import { useSelector } from "react-redux";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./Home";
+import Teams from "./Teams";
+import Projects from "./Projects";
+import DailyTasks from "./DailyTasks";
 import Details from "./Details";
 import TabBar from "../components/TabBar";
 import LogoTitle from "../components/LogoTitle";
@@ -57,7 +60,7 @@ const Main = () => {
       />
       <Tab.Screen
         name="Equipos"
-        component={Details}
+        component={Teams}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="users" size={size} color={color} />
@@ -66,7 +69,7 @@ const Main = () => {
       />
       <Tab.Screen
         name="Proyectos"
-        component={Details}
+        component={Projects}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="clipboard" size={size} color={color} />
@@ -75,7 +78,7 @@ const Main = () => {
       />
       <Tab.Screen
         name="Tareas"
-        component={Details}
+        component={DailyTasks}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="check-circle" size={size} color={color} />

@@ -1,23 +1,25 @@
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 import { View, Text } from "react-native";
 import { Avatar, VStack } from "native-base";
 
 // import { light as theme } from "../themes";
 
-const Members = ({ size = "md" }) => {
-  const theme = useSelector(state => state.themes)
+const Members = ({ size = "md", showTitle = true }) => {
+  const theme = useSelector((state) => state.themes);
 
   return (
     <VStack space="2">
-      <Text
-        style={{
-          color: theme.colors.supportText,
-          // fontWeight: 500,
-          //   marginLeft: 16,
-        }}
-      >
-        Miembros
-      </Text>
+      {showTitle && (
+        <Text
+          style={{
+            color: theme.colors.supportText,
+            // fontWeight: 500,
+            //   marginLeft: 16,
+          }}
+        >
+          Miembros
+        </Text>
+      )}
       <Avatar.Group
         space={-3}
         color={theme.colors.secondary}

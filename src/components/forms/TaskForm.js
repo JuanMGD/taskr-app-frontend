@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Input, Icon, TextArea, FormControl, VStack, HStack, Spacer } from "native-base";
 import Feather from "@expo/vector-icons/Feather";
 import IconButton from "../IconButton";
+import UserSelector from "../UserSelector";
 
 const TaskForm = () => {
   const theme = useSelector((state) => state.themes);
@@ -65,6 +66,7 @@ const TaskForm = () => {
           }
         />
       </FormControl>
+      <UserSelector single={true}/>
     </VStack>
   );
 };

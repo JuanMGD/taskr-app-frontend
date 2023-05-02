@@ -73,7 +73,7 @@ export default themes = {
       supportText: "#C0C0C0",
       primary: "#079DC7",
       secondary: "#472662",
-      tertiary: "#F5F9FC",
+      tertiary: "#472662",
     },
     type: 'dark'
   },

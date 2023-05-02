@@ -11,13 +11,14 @@ const OverviewCard = ({
   description = null,
   members = null,
   progress = null,
+  onPress,
 }) => {
   const theme = useSelector(state => state.themes)
   
   return (
     <Box alignItems="center">
       <Pressable
-        onPress={() => console.log("I'm Pressed")}
+        onPress={() => onPress()}
         rounded="12"
         overflow="hidden"
         borderWidth="1"
@@ -30,11 +31,11 @@ const OverviewCard = ({
       >
         <Box>
           <Text
-            style={{ color: theme.colors.foreground, fontSize: 24 }}
+            style={{ color: theme.colors.foreground, fontSize: 20 }}
             mt="3"
-            fontSize="xl"
+            // fontSize="xl"
           >
-            Proyecto 1
+            {title}
           </Text>
           {description && (
             <>

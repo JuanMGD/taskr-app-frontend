@@ -41,7 +41,7 @@ const TaskItem = ({
         <Box>
           <HStack alignItems="center" justifyContent="space-between">
             <Checkbox
-              size="lg"
+              size="md"
               // value="one"
               borderRadius={100}
               onChange={(value) => setChecked(value)}

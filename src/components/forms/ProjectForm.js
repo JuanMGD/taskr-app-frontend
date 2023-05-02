@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import { Input, Icon, TextArea, FormControl, VStack, HStack, Spacer } from "native-base";
 import Feather from "@expo/vector-icons/Feather";
 import IconButton from "../IconButton";
+import SelectionList from "../SelectionList";
+import UserSelector from "../UserSelector";
 
 const ProjectForm = () => {
   const theme = useSelector((state) => state.themes);
@@ -65,6 +67,8 @@ const ProjectForm = () => {
           }
         />
       </FormControl>
+      <UserSelector/>
+      {/* <SelectionList/> */}
     </VStack>
   );
 };
