@@ -5,21 +5,27 @@ import { HStack, Spacer, Icon } from "native-base";
 import Feather from "@expo/vector-icons/Feather";
 // import UserTag from "./UserTag";
 
-const ListItem = ({ item, updateSelection, isSelected, /* initialSelection, */ ItemElement }) => {
+const ListItem = ({
+  item,
+  updateSelection,
+  isSelected,
+  itemKey,
+  /* initialSelection, */ ItemElement,
+}) => {
   const theme = useSelector((state) => state.themes);
-  // const [selected, setSelected] = useState(initialSelection.includes(item.id))
+  // const [selected, setSelected] = useState(initialSelection.includes(item[itemKey]))
 
   const handlePress = () => {
     // setSelected(!selected)
-    updateSelection(item.id)
-  }
+    updateSelection(item[itemKey]);
+  };
 
   return (
-    <TouchableOpacity onPress={() => updateSelection(item.id)}>
+    <TouchableOpacity onPress={() => updateSelection(item[itemKey])}>
       <HStack p={3} alignItems="center">
-        {ItemElement}
+        {ItemElement(item)}
         <Spacer />
-        {isSelected(item.id) && (
+        {isSelected(item[itemKey]) && (
           <View
             style={{
               alignItems: "center",
@@ -45,9 +51,17 @@ const ListItem = ({ item, updateSelection, isSelected, /* initialSelection, */ I
 
 const MemoizedListItem = memo(ListItem);
 
-const SelectionList = ({ selected=[], setSelected=null, data=[], single = false, ItemElement=null }) => {
+const SelectionList = ({
+  selected = [],
+  setSelected = null,
+  data = [],
+  single = false,
+  ItemElement = null,
+  itemKey='id',
+  onSelect=()=>{}
+}) => {
   const theme = useSelector((state) => state.themes);
-  
+
   // const [selected, setSelected] = useState(initialSelection);
 
   // const data = [
@@ -58,32 +72,36 @@ const SelectionList = ({ selected=[], setSelected=null, data=[], single = false,
   //   { id: "5" },
   // ];
 
-  const isSelected = (id) => selected.includes(id);
+  const isSelected = (key) => selected.includes(key);
 
-  const markItem = (id) => {
-    if (single) return setSelected(id);
-    return setSelected([...selected, id]);
+  const markItem = (key) => {
+    if (single) return setSelected(key);
+    return setSelected([...selected, key]);
   };
 
-  const unmarkItem = (id) => {
+  const unmarkItem = (key) => {
     if (single) return setSelected([]);
-    return setSelected(selected.filter((item) => item !== id));
+    return setSelected(selected.filter((item) => item !== key));
   };
 
-  const updateSelection = (id) => {
-    if (isSelected(id)) return unmarkItem(id);
-    return markItem(id);
+  const updateSelection = (key) => {
+    onSelect(key)
+    if (isSelected(key)) return unmarkItem(key);
+    return markItem(key);
   };
 
-  const renderItem = useCallback(({ item }) => (
-    <MemoizedListItem
-      // initialSelection={initialSelection}
-      item={item}
-      isSelected={isSelected}
-      updateSelection={updateSelection}
-      ItemElement={ItemElement}
-    />
-  ), []);
+  const renderItem = useCallback(
+    ({ item }) => (
+      <MemoizedListItem
+        // initialSelection={initialSelection}
+        item={item}
+        isSelected={isSelected}
+        updateSelection={updateSelection}
+        ItemElement={ItemElement}
+      />
+    ),
+    []
+  );
 
   return (
     // <View style={{ backgroundColor: theme.colors.background }}>
@@ -100,13 +118,16 @@ const SelectionList = ({ selected=[], setSelected=null, data=[], single = false,
       // isSelected={isSelected}
       data={data}
       extraData={data}
-      renderItem={({item}) => <ListItem
-        // initialSelection={initialSelection}
-        item={item}
-        isSelected={isSelected}
-        updateSelection={updateSelection}
-        ItemElement={ItemElement}
-      />}
+      renderItem={({ item }) => (
+        <ListItem
+          // initialSelection={initialSelection}
+          item={item}
+          isSelected={isSelected}
+          updateSelection={updateSelection}
+          ItemElement={ItemElement}
+          itemKey={itemKey}
+        />
+      )}
     />
   );
 };

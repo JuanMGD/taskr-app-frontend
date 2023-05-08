@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { enableScreens } from 'react-native-screens';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./Home";
 import Teams from "./Teams";
@@ -11,12 +12,12 @@ import UserTag from "../components/UserTag";
 import { Button } from "react-native";
 import Header from "../components/Header";
 import Feather from "@expo/vector-icons/Feather";
-// import Feat
 
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
   const theme = useSelector((state) => state.themes);
+  enableScreens();
 
   return (
     <Tab.Navigator
@@ -36,7 +37,7 @@ const Main = () => {
         // },
         // navigation
         // tabBarBackground: '#F5F9FC'
-        // headerShown: false
+        headerShown: false,
         // transparentCard: true,
         headerStyle: {
           backgroundColor: theme.colors.background,
@@ -45,7 +46,7 @@ const Main = () => {
         },
         // headerTitle: (props) => <LogoTitle  {...props} />,
         // headerRight: () => <UserTag size="sm" imageFirst={false} mr='20'/>,
-        header: (navigationProps) => <Header {...navigationProps} />,
+        // header: (navigationProps) => <Header {...navigationProps} />,
       })}
       tabBar={(props) => <TabBar {...props} />}
     >

@@ -1,26 +1,11 @@
 import { useSelector } from "react-redux";
-import { createStackNavigator } from "@react-navigation/stack";
 import { HStack, VStack } from "native-base";
 import { View, StatusBar, Text, ScrollView } from "react-native";
 import OverviewCard from "../components/OverviewCard";
 import AddButton from "../components/AddButton";
 import TeamForm from "../components/forms/TeamForm";
+import Header from "../components/Header";
 
-const TeamsScreen = () => {
-  const Stack = createStackNavigator();
-
-  return (
-    <Stack.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        // transparentCard: true,
-      })}
-    >
-      <Stack.Screen name="Teams" component={Teams} />
-      {/* <Stack.Screen name="Details" component={Details} /> */}
-    </Stack.Navigator>
-  );
-};
 
 function Teams({ navigation }) {
   const theme = useSelector((state) => state.themes);
@@ -35,10 +20,12 @@ function Teams({ navigation }) {
         barStyle={theme.type == "light" ? "dark-content" : "light-content"}
       />
 
+      <Header navigation={navigation} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ alignItems: "center", padding: 10 }}
         style={{
+          marginTop: 75,
           backgroundColor: theme.colors.background,
         }} /* alignItems="center" flex={1} bg={theme.colors.background} */
       >
@@ -48,6 +35,7 @@ function Teams({ navigation }) {
             <Text
               style={{
                 fontSize: 18,
+                marginTop: 10,
                 color: theme.colors.foreground,
                 fontWeight: 500,
               }}
@@ -58,7 +46,7 @@ function Teams({ navigation }) {
               <OverviewCard
                 // progress={90}
                 title="Equipo A"
-                onPress={() => navigation.navigate("Details")}
+                onPress={() => navigation.navigate("TeamDetails")}
                 description={
                   "Unlock powerfull time-saving tools for creating email delivery and collecting marketing data"
                 }
@@ -77,4 +65,4 @@ function Teams({ navigation }) {
   );
 }
 
-export default TeamsScreen;
+export default Teams;

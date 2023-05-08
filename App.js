@@ -4,15 +4,13 @@ import { Platform } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "./src/app/store";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { enableScreens } from "react-native-screens";
 // import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // import Home from "./src/screens/Home";
 // import Details from "./src/screens/Details";
 // import TabBar from "./src/components/TabBar";
 import { NativeBaseProvider, extendTheme } from "native-base";
-import Main from "./src/screens/Main";
-
-const Stack = createStackNavigator();
+import ProtectedRoutes from "./src/screens/ProtectedRoutes";
 
 const theme = extendTheme({
   components: {
@@ -31,21 +29,12 @@ const theme = extendTheme({
 });
 
 export default function App() {
+  enableScreens();
   return (
     <Provider store={store}>
       <NativeBaseProvider theme={theme}>
         <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={({ route }) => ({
-              headerShown: false,
-              // transparentCard: true,
-            })}
-          >
-            <Stack.Screen name="Main" component={Main} />
-            {/* <Stack.Screen name="Notifications" component={Notifications} />
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="Settings" component={Settings} /> */}
-          </Stack.Navigator>
+          <ProtectedRoutes/>
         </NavigationContainer>
       </NativeBaseProvider>
     </Provider>

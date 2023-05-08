@@ -19,29 +19,32 @@ const TaskItem = ({
   showDate = false,
   showAssignedTo = false,
   showDescription = false,
+  completed=false,
+  onPress,
 }) => {
   const theme = useSelector((state) => state.themes);
 
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(completed);
 
   return (
-    <Box alignItems="center">
+    <Box alignItems="center" maxW="96%">
       <Pressable
-        onPress={() => console.log("I'm Pressed")}
+        onPress={() => onPress()}
         rounded="12"
         overflow="hidden"
         borderWidth="1"
         borderColor={theme.colors.background}
-        maxW="96"
+        maxW="100%"
+        // w="100%"
         w={96}
         // shadow="3"
         bg={theme.colors.background}
-        p="2"
+        py="2"
       >
         <Box>
           <HStack alignItems="center" justifyContent="space-between">
             <Checkbox
-              size="md"
+              size="lg"
               // value="one"
               borderRadius={100}
               onChange={(value) => setChecked(value)}
@@ -62,15 +65,17 @@ const TaskItem = ({
               }}
               mr={-1}
               icon={<Icon as={<Feather name="check" />} />}
-              accessibilityLabel="Checkbox to mark the task as complete" 
+              accessibilityLabel="Checkbox to mark the task as complete"
             />
             <VStack /* onPress={() => setChecked(!checked)} */>
               <Text
+                numberOfLines={1}
                 style={{
                   color: theme.colors.foreground,
                   textDecorationLine: checked ? "line-through" : "none",
-                  fontWeight: checked ? '500' : 'regular',
+                  fontWeight: checked ? "500" : "regular",
                   textDecorationColor: theme.colors.foreground,
+                  maxWidth: "95%",
                 }}
               >
                 UX Research
@@ -83,13 +88,14 @@ const TaskItem = ({
             </VStack>
             {showDescription && (
               <Text
-                style={{ color: theme.colors.supportText /* marginTop: 8  */ }}
+                numberOfLines={1}
+                style={{ color: theme.colors.supportText, maxWidth: "30%", /* marginTop: 8  */ }}
               >
                 Lorem ipsum dolor
               </Text>
             )}
             {showAssignedTo && (
-              <VStack space={0.5}>
+              <VStack maxWidth='30%' space={0.5}>
                 <Text style={{ color: theme.colors.supportText, fontSize: 12 }}>
                   Responsable
                 </Text>
@@ -98,11 +104,11 @@ const TaskItem = ({
             )}
             <Badge
               m={1}
-              colorScheme={checked ? "success" : 'warning'}
+              colorScheme={checked ? "success" : "warning"}
               alignSelf="center"
               variant="subtle"
             >
-              {checked ? "Completado" : 'En progreso'}
+              {checked ? "Completado" : "En progreso"}
             </Badge>
           </HStack>
         </Box>

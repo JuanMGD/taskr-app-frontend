@@ -1,27 +1,11 @@
 import { useSelector } from "react-redux";
-import { createStackNavigator } from "@react-navigation/stack";
 import { HStack, VStack } from "native-base";
 import { View, StatusBar, Text, ScrollView } from "react-native";
 import OverviewCard from "../components/OverviewCard";
 import AddButton from "../components/AddButton";
 import TaskItem from "../components/TaskItem";
 import TaskForm from "../components/forms/TaskForm";
-
-const DailyTasksScreen = () => {
-  const Stack = createStackNavigator();
-
-  return (
-    <Stack.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        // transparentCard: true,
-      })}
-    >
-      <Stack.Screen name="DailyTasks" component={DailyTasks} />
-      {/* <Stack.Screen name="Details" component={Details} /> */}
-    </Stack.Navigator>
-  );
-};
+import Header from "../components/Header";
 
 function DailyTasks({ navigation }) {
   const theme = useSelector((state) => state.themes);
@@ -36,10 +20,12 @@ function DailyTasks({ navigation }) {
         barStyle={theme.type == "light" ? "dark-content" : "light-content"}
       />
 
+      <Header navigation={navigation} />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ alignItems: "center", padding: 10, }}
+        contentContainerStyle={{ alignItems: "center", padding: 10 }}
         style={{
+          marginTop: 75,
           backgroundColor: theme.colors.background,
         }} /* alignItems="center" flex={1} bg={theme.colors.background} */
       >
@@ -49,6 +35,7 @@ function DailyTasks({ navigation }) {
           <Text
             style={{
               fontSize: 18,
+              marginTop: 10,
               color: theme.colors.foreground,
               fontWeight: 500,
             }}
@@ -57,18 +44,33 @@ function DailyTasks({ navigation }) {
           </Text>
           {data.map((item) => (
             <VStack
-            //   p={1}
+              py={3}
+              px={5}
               space={2}
               borderColor={theme.colors.secondary}
               borderWidth={1}
               borderRadius={12}
             >
-              <Text style={{ color: theme.colors.foreground, fontSize: 20, marginTop: 10, marginLeft: 10 }}>
+              <Text
+                style={{
+                  color: theme.colors.foreground,
+                  fontSize: 20 /* marginTop: 10, marginLeft: 10 */,
+                }}
+              >
                 Proyecto 1
               </Text>
-              <TaskItem showDescription={true} />
-              <TaskItem showDescription={true} />
-              <TaskItem showDescription={true} />
+              <TaskItem
+                onPress={() => navigation.navigate("TaskDetails")}
+                showDescription={true}
+              />
+              <TaskItem
+                onPress={() => navigation.navigate("TaskDetails")}
+                showDescription={true}
+              />
+              <TaskItem
+                onPress={() => navigation.navigate("TaskDetails")}
+                showDescription={true}
+              />
             </VStack>
           ))}
         </VStack>
@@ -84,4 +86,4 @@ function DailyTasks({ navigation }) {
   );
 }
 
-export default DailyTasksScreen;
+export default DailyTasks;

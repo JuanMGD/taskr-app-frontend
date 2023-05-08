@@ -2,8 +2,9 @@ import { useSelector } from "react-redux";
 import { View, Text, TouchableOpacity } from "react-native";
 import { VStack } from "native-base";
 
-function TabBar({ state, descriptors, navigation }) {
+function TabBar({ state, descriptors, navigation, /* ...props */ }) {
   const theme = useSelector((state) => state.themes);
+  
   return (
     <View
       style={{
@@ -12,6 +13,7 @@ function TabBar({ state, descriptors, navigation }) {
         backgroundColor: theme.colors.background,
         borderTopColor: theme.colors.secondary,
         borderTopWidth: 1,
+        // ...props
         // height: 55,
       }}
     >

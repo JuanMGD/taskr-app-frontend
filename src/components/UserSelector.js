@@ -36,7 +36,7 @@ const UserSelector = ({single=false}) => {
       <Spacer/>
       {single ? <UserTag size="sm" /> : <Members size={"sm"} showTitle={false}/>}
       </HStack>
-      <SelectionList single={single} selected={selected} setSelected={setSelected} data={data} ItemElement={<UserTag size="sm" />}/>
+      <SelectionList single={single} selected={selected} setSelected={setSelected} data={data} ItemElement={(user) => <UserTag size="sm" />}/>
     </View>
   )
 }

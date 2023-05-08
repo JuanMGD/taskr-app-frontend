@@ -1,39 +1,14 @@
 import { useSelector } from "react-redux";
-import { createStackNavigator } from "@react-navigation/stack";
-import {
-  View,
-  SafeAreaView,
-  FlatList,
-  StatusBar,
-  Text,
-  Dimensions,
-  ScrollView,
-} from "react-native";
-import { HStack, Center, VStack, Box } from "native-base";
+import { StatusBar, Text, ScrollView } from "react-native";
+import { HStack, VStack } from "native-base";
 
 import StatisticsCard from "../components/StatisticsCard";
 import OverviewCard from "../components/OverviewCard";
-import TaskItem from "../components/TaskItem";
-import GradientButton from "../components/GradientButton";
-import AddButton from "../components/AddButton";
-import TeamForm from "../components/forms/TeamForm";
-import Details from "./Details";
-
-const HomeScreen = () => {
-  const Stack = createStackNavigator();
-
-  return (
-    <Stack.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        // transparentCard: true,
-      })}
-    >
-      <Stack.Screen name="Home" component={Home} />
-      {/* <Stack.Screen name="Details" component={Details} /> */}
-    </Stack.Navigator>
-  );
-};
+import Header from "../components/Header";
+// import TaskItem from "../components/TaskItem";
+// import GradientButton from "../components/GradientButton";
+// import AddButton from "../components/AddButton";
+// import TeamForm from "../components/forms/TeamForm";
 
 function Home({ navigation }) {
   const theme = useSelector((state) => state.themes);
@@ -47,11 +22,13 @@ function Home({ navigation }) {
         backgroundColor={theme.colors.background}
         barStyle={theme.type == "light" ? "dark-content" : "light-content"}
       />
-
+      
+      <Header navigation={navigation} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ alignItems: "center", padding: 10 }}
         style={{
+          marginTop: 75,
           backgroundColor: theme.colors.background,
         }} /* alignItems="center" flex={1} bg={theme.colors.background} */
       >
@@ -94,7 +71,7 @@ function Home({ navigation }) {
               <OverviewCard
                 title="Proyecto 1"
                 progress={90}
-                onPress={() => navigation.navigate("Details")}
+                onPress={() => navigation.navigate("ProjectDetails")}
                 // description={
                 //   "Unlock powerfull time-saving tools for creating email delivery and collecting marketing data"
                 // }
@@ -115,4 +92,4 @@ function Home({ navigation }) {
 
 // const
 
-export default HomeScreen;
+export default Home;

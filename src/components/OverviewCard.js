@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux"
-import { View, Text } from "react-native";
+import { useSelector } from "react-redux";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Box, Pressable, HStack, Badge, Spacer, Flex } from "native-base";
 import ProgressBlock from "./ProgressBlock";
 import Members from "./Members";
@@ -13,14 +13,26 @@ const OverviewCard = ({
   progress = null,
   onPress,
 }) => {
-  const theme = useSelector(state => state.themes)
-  
+  const theme = useSelector((state) => state.themes);
+
   return (
     <Box alignItems="center">
+      {/* <TouchableOpacity
+        onPress={() => onPress()}
+        style={{
+          borderRadius: 12,
+          borderWidth: 1,
+          borderColor: theme.colors.secondary,
+          maxWidth: "98%",
+          width: "98%",
+          backgroundColor: theme.colors.background,
+          padding: 25,
+        }}
+      > */}
       <Pressable
         onPress={() => onPress()}
         rounded="12"
-        overflow="hidden"
+        // overflow="hidden"
         borderWidth="1"
         borderColor={theme.colors.secondary}
         maxW="96"
@@ -50,7 +62,7 @@ const OverviewCard = ({
                 fontSize="sm"
                 style={{ color: theme.colors.foreground }}
               >
-                { description }
+                {description}
               </Text>
             </>
           )}
@@ -61,6 +73,7 @@ const OverviewCard = ({
           </HStack>
         </Box>
       </Pressable>
+      {/* </TouchableOpacity> */}
     </Box>
   );
 };
