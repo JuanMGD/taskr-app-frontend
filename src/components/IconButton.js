@@ -3,7 +3,7 @@ import { TouchableOpacity, Text } from "react-native";
 import { Icon } from "native-base";
 import { Feather } from "@expo/vector-icons";
 
-const IconButton = ({ iconName, primary=false }) => {
+const IconButton = ({ iconName, primary=false, onPress=() => {} }) => {
   const theme = useSelector((state) => state.themes);
   return (
     <TouchableOpacity
@@ -12,6 +12,7 @@ const IconButton = ({ iconName, primary=false }) => {
         padding: "3.5%",
         borderRadius: 10,
       }}
+      onPress={onPress}
     >
       <Icon color={primary ? "#F5F9FC" : theme.colors.foreground } as={Feather} name={iconName} size={5} />
     </TouchableOpacity>

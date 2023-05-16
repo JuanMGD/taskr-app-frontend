@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { Icon, HStack, Box } from "native-base";
 import { Feather } from "@expo/vector-icons";
 
-const Chip = () => {
+const Chip = ({ text='', onDelete }) => {
   const theme = useSelector((state) => state.themes);
 
   return (
@@ -17,8 +17,9 @@ const Chip = () => {
       borderColor={theme.colors.secondary}
       borderWidth={1}
     >
-      <Text style={{ color: theme.colors.foreground }}>usuario@taskr.com</Text>
+      <Text style={{ color: theme.colors.foreground }}>{text}</Text>
       <TouchableOpacity
+        onPress={onDelete}
         style={{
           padding: 2,
           backgroundColor: theme.colors.foreground,

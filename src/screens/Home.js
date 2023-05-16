@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
+import { useGetProjectsQuery } from "../api/apiSlice";
 import { StatusBar, Text, ScrollView } from "react-native";
-import { HStack, VStack } from "native-base";
+import { HStack, VStack, Box, Menu, Pressable } from "native-base";
 
 import StatisticsCard from "../components/StatisticsCard";
 import OverviewCard from "../components/OverviewCard";
@@ -12,8 +13,10 @@ import Header from "../components/Header";
 
 function Home({ navigation }) {
   const theme = useSelector((state) => state.themes);
+  // const projects = useSelector((state) => state.projects);
+  const { data: projects, isSuccess } = useGetProjectsQuery();
 
-  const data = ["1", "2", "3", "4", "5", "6", "7"];
+  // const data = ["1", "2", "3", "4", "5", "6", "7"];
 
   return (
     <>
@@ -22,7 +25,7 @@ function Home({ navigation }) {
         backgroundColor={theme.colors.background}
         barStyle={theme.type == "light" ? "dark-content" : "light-content"}
       />
-      
+
       <Header navigation={navigation} />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -33,6 +36,7 @@ function Home({ navigation }) {
         }} /* alignItems="center" flex={1} bg={theme.colors.background} */
       >
         <VStack space={4}>
+
           <Text
             style={{
               fontSize: 18,
@@ -67,16 +71,21 @@ function Home({ navigation }) {
             >
               Proyectos recientes
             </Text>
-            {data.map((item) => (
-              <OverviewCard
-                title="Proyecto 1"
-                progress={90}
-                onPress={() => navigation.navigate("ProjectDetails")}
-                // description={
-                //   "Unlock powerfull time-saving tools for creating email delivery and collecting marketing data"
-                // }
-              />
-            ))}
+            {isSuccess &&
+              projects.map((project) => (
+                <OverviewCard
+                  key={`project-${project.id}`}
+                  title={project.name}
+                  progress={project.progress}
+                  members={project.members}
+                  onPress={() =>
+                    navigation.navigate("ProjectDetails", { project })
+                  }
+                  // description={
+                  //   "Unlock powerfull time-saving tools for creating email delivery and collecting marketing data"
+                  // }
+                />
+              ))}
           </VStack>
           {/* <TaskItem showDate={true} showAssignedTo={true} />
           <TaskItem showDescription={true} />

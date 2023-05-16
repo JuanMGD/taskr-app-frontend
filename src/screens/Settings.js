@@ -28,6 +28,7 @@ import themes from "../themes";
 
 const Settings = ({ navigation }) => {
   const theme = useSelector((state) => state.themes);
+  const currentUser = useSelector((state) => state.auth);
   const themeOptions = Object.keys(themes).map((key, index) => ({
     ...themes[key],
     key,
@@ -46,7 +47,7 @@ const Settings = ({ navigation }) => {
         barStyle={theme.type == "light" ? "dark-content" : "light-content"}
       />
 
-      <Header stackHeader={true} navigation={navigation} />
+      <Header stackHeader={true} showOptions={false} navigation={navigation} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ alignItems: "center", padding: 10, flex: 1 }}
@@ -67,10 +68,13 @@ const Settings = ({ navigation }) => {
             alignSelf="center"
             size="xl"
             source={{
-              uri: "https://images.unsplash.com/photo-1510771463146-e89e6e86560e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
+              // uri: "https://images.unsplash.com/photo-1510771463146-e89e6e86560e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
             }}
           >
-            RB
+            {currentUser.isLoggedIn && currentUser.name
+              .split(" ")
+              .map((n, i) => (i < 2 ? n[0].toUpperCase() : ""))
+              .join(" ")}
           </Avatar>
           <Text
             style={{
@@ -83,7 +87,7 @@ const Settings = ({ navigation }) => {
               //   width: "90%",
             }}
           >
-            Nombre de usuario
+            {currentUser.name}
           </Text>
           <View style={{ width: "96%" }}>
             <HStack space={2} alignItems="center">
@@ -100,7 +104,7 @@ const Settings = ({ navigation }) => {
               </Text>
               <Spacer />
               <Text style={{ color: theme.colors.supportText }}>
-                nombre_usuario@taskr.com
+                {currentUser.email}
               </Text>
             </HStack>
           </View>

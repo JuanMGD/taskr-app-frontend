@@ -9,7 +9,7 @@ import Members from "./Members";
 const OverviewCard = ({
   title = "",
   description = null,
-  members = null,
+  members = [],
   progress = null,
   onPress,
 }) => {
@@ -67,7 +67,7 @@ const OverviewCard = ({
             </>
           )}
           <HStack mt="2" alignItems="center">
-            <Members />
+            <Members members={members} />
             <Spacer />
             {progress && <ProgressBlock percentage={progress} />}
           </HStack>

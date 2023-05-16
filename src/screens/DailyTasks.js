@@ -1,16 +1,28 @@
 import { useSelector } from "react-redux";
+import { useGetTasksQuery } from "../api/apiSlice";
 import { HStack, VStack } from "native-base";
 import { View, StatusBar, Text, ScrollView } from "react-native";
-import OverviewCard from "../components/OverviewCard";
 import AddButton from "../components/AddButton";
 import TaskItem from "../components/TaskItem";
 import TaskForm from "../components/forms/TaskForm";
 import Header from "../components/Header";
+// import { useEffect } from "react";
+// import OverviewCard from "../components/OverviewCard";
 
 function DailyTasks({ navigation }) {
   const theme = useSelector((state) => state.themes);
+  const projects = useSelector((state) => state.projects);
+  // const tasks = useSelector((state) => state.tasks);
+  const {
+    data: tasks,
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    error,
+  } = useGetTasksQuery();
+  // let groupedDailyTasks = [];
 
-  const data = ["1", "2", "3", "4", "5", "6", "7"];
 
   return (
     <>
@@ -42,42 +54,44 @@ function DailyTasks({ navigation }) {
           >
             Mis tareas para hoy
           </Text>
-          {data.map((item) => (
-            <VStack
-              py={3}
-              px={5}
-              space={2}
-              borderColor={theme.colors.secondary}
-              borderWidth={1}
-              borderRadius={12}
-            >
-              <Text
-                style={{
-                  color: theme.colors.foreground,
-                  fontSize: 20 /* marginTop: 10, marginLeft: 10 */,
-                }}
+          {isSuccess &&
+            Object.entries(
+              tasks.reduce((projects, task) => {
+                (projects[task.project_id] =
+                  projects[task.project_id] || []).push(task);
+                return projects;
+              }, {})
+            ).map(([projectId, projectTasks]) => (
+              <VStack
+                py={3}
+                px={5}
+                space={2}
+                borderColor={theme.colors.secondary}
+                borderWidth={1}
+                borderRadius={12}
               >
-                Proyecto 1
-              </Text>
-              <TaskItem
-                onPress={() => navigation.navigate("TaskDetails")}
-                showDescription={true}
-              />
-              <TaskItem
-                onPress={() => navigation.navigate("TaskDetails")}
-                showDescription={true}
-              />
-              <TaskItem
-                onPress={() => navigation.navigate("TaskDetails")}
-                showDescription={true}
-              />
-            </VStack>
-          ))}
+                <Text
+                  style={{
+                    color: theme.colors.foreground,
+                    fontSize: 20,
+                  }}
+                >
+                  {
+                    projects.find(
+                      (project) => project.id === parseInt(projectId)
+                    ).name
+                  }
+                </Text>
+                {projectTasks.map((task) => (
+                  <TaskItem
+                    task={task}
+                    onPress={() => navigation.navigate("TaskDetails", { task })}
+                    showDescription={true}
+                  />
+                ))}
+              </VStack>
+            ))}
         </VStack>
-        {/* <TaskItem showDate={true} showAssignedTo={true} />
-          <TaskItem showDescription={true} />
-          <GradientButton /> */}
-        {/* </VStack> */}
       </ScrollView>
       <AddButton>
         <TaskForm />

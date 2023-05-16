@@ -12,9 +12,12 @@ const Stack = createStackNavigator();
 
 const ProtectedRoutes = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const theme = useSelector((state) => state.themes);
+
   return (
     <Stack.Navigator
     // screenOptions={({ route }) => ({
+      // containerStyle:{backgroundColor: theme.colors.background}
     // headerShown: false,
     // transparentCard: true,
     // })}

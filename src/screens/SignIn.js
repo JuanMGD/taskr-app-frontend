@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import { signIn } from "../features/auth/authSlice";
+import { useGetUsersQuery } from "../api/apiSlice";
 import {
   View,
   Text,
@@ -21,6 +23,46 @@ import LogoTitle from "../components/LogoTitle";
 const SignIn = ({ navigation }) => {
   const theme = useSelector((state) => state.themes);
   const dispatch = useDispatch();
+  const { data: users, isSuccess: isSuccessUsers } = useGetUsersQuery();
+  const [errors, setErrors] = useState({});
+  const [credentials, setcredentials] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = credentials;
+
+  const validateCredentials = () => {
+    if (!isSuccessUsers) return false;
+
+    if (credentials.email.trim() === "") {
+      setErrors({
+        ...errors,
+        email: "Debe introducir su correo",
+      });
+      return false;
+    }
+    if (credentials.password.trim() === "") {
+      setErrors({
+        ...errors,
+        password: "Debe introducir su contraseña",
+      });
+      return false;
+    }
+
+    const account = users.find(
+      (user) => user.email === email && user.password === password
+    );
+    if (account === undefined) {
+      setErrors({
+        email: "Correo o contraseña incorrectos",
+        password: "Correo o contraseña incorrectos",
+      });
+      return false;
+    }
+
+    return account !== undefined;
+  };
 
   return (
     <>
@@ -69,8 +111,12 @@ const SignIn = ({ navigation }) => {
           >
             Inicia sesión
           </Text>
-          <FormControl width="85%">
+          <FormControl width="85%" isRequired isInvalid={"email" in errors}>
             <Input
+              value={email}
+              onChangeText={(value) =>
+                setcredentials({ ...credentials, email: value })
+              }
               borderRadius="xl"
               p={3}
               size="md"
@@ -83,9 +129,18 @@ const SignIn = ({ navigation }) => {
               }}
               placeholder="Ingresa tu correo"
             />
+            {"email" in errors && (
+              <FormControl.ErrorMessage>
+                {errors.email}
+              </FormControl.ErrorMessage>
+            )}
           </FormControl>
-          <FormControl width="85%">
+          <FormControl width="85%" isRequired isInvalid={"password" in errors}>
             <Input
+              value={password}
+              onChangeText={(value) =>
+                setcredentials({ ...credentials, password: value })
+              }
               type="password"
               borderRadius="xl"
               p={3}
@@ -100,8 +155,27 @@ const SignIn = ({ navigation }) => {
               }}
               placeholder="Contraseña"
             />
+            {"password" in errors && (
+              <FormControl.ErrorMessage>
+                {errors.password}
+              </FormControl.ErrorMessage>
+            )}
           </FormControl>
-          <GradientButton text='Iniciar sesión' onPress={() => dispatch(signIn())} />
+          <GradientButton
+            text="Iniciar sesión"
+            onPress={() => {
+              if (validateCredentials()) {
+                dispatch(
+                  signIn(
+                    users.find(
+                      (user) =>
+                        user.email === email && user.password === password
+                    )
+                  )
+                );
+              }
+            }}
+          />
           <HStack space={1.5} mt={2} alignItems="center">
             <Text
               style={{

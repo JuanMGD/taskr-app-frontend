@@ -1,0 +1,202 @@
+{
+  "teams": [
+    {
+      "id": 1,
+      "name": "Team A",
+      "description": "Unlock powerfull time-saving tools for creating email delivery and collecting marketing data",
+      "leader": 1,
+      "members": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Team B",
+      "description": "Unlock powerfull time-saving tools for creating email delivery and collecting marketing data",
+      "leader": 1,
+      "members": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "Team C",
+      "description": "Se ha editado la descripción del equipo para comprobar que funcionen las modificaciones y verificar que el CRUD esté completo.",
+      "leader": 1,
+      "members": [
+        2,
+        5,
+        3,
+        1
+      ],
+      "id": 3
+    },
+    {
+      "name": "Team D",
+      "description": "Equipo creado por el usuario 3",
+      "leader": 3,
+      "members": [
+        2,
+        3
+      ],
+      "id": 4
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "Project 1",
+      "description": "Unlock powerfull time-saving tools for creating email delivery and collecting marketing data",
+      "leader": {
+        "id": 1,
+        "name": "Nombre usuario",
+        "email": "usuario@taskr.com"
+      },
+      "members": [
+        {
+          "id": 1,
+          "name": "Nombre usuario",
+          "email": "usuario@taskr.com"
+        },
+        {
+          "id": 2,
+          "name": "Nombre usuario",
+          "email": "usuario@taskr.com"
+        },
+        {
+          "id": 3,
+          "name": "Nombre usuario",
+          "email": "usuario@taskr.com"
+        },
+        {
+          "id": 4,
+          "name": "Nombre usuario",
+          "email": "usuario@taskr.com"
+        },
+        {
+          "id": 5,
+          "name": "Nombre usuario",
+          "email": "usuario@taskr.com"
+        }
+      ],
+      "team_id": 1,
+      "progress": 70
+    },
+    {
+      "id": 2,
+      "name": "Project 2",
+      "description": "Unlock powerfull time-saving tools for creating email delivery and collecting marketing data",
+      "leader": {
+        "id": 1,
+        "name": "Nombre usuario",
+        "email": "usuario@taskr.com"
+      },
+      "members": [
+        {
+          "id": 1,
+          "name": "Nombre usuario",
+          "email": "usuario@taskr.com"
+        },
+        {
+          "id": 2,
+          "name": "Nombre usuario",
+          "email": "usuario@taskr.com"
+        },
+        {
+          "id": 3,
+          "name": "Nombre usuario",
+          "email": "usuario@taskr.com"
+        }
+      ],
+      "team_id": 2,
+      "progress": 90
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "title": "UX Design",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem saepe, impedit accusamus delectus vero architecto excepturi blanditiis corrupti nesciunt nih rutrum mollis libero, at aliquam mauris laoreet quis. Phasellus eget enim.",
+      "completed": true,
+      "notes": "Se requiere el siguiente material: \nCables \nLeds",
+      "project_id": 1,
+      "assignedTo": {
+        "id": 1,
+        "name": "Nombre usuario",
+        "email": "usuario@taskr.com"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Task 3",
+      "description": "Task 3 description",
+      "completed": true,
+      "notes": "",
+      "project_name": "Project 2",
+      "project_id": 2,
+      "assignedTo": {
+        "id": 1,
+        "name": "Nombre usuario",
+        "email": "usuario@taskr.com"
+      }
+    },
+    {
+      "id": 4,
+      "title": "Desarrollo de la estructura de la base de datos",
+      "description": "Task 4 description",
+      "completed": false,
+      "notes": "",
+      "project_name": "Project 2",
+      "project_id": 2,
+      "assignedTo": {
+        "id": 1,
+        "name": "Nombre usuario",
+        "email": "usuario@taskr.com"
+      }
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Usuario 1",
+      "email": "usuario1@taskr.com",
+      "password": "usuario1"
+    },
+    {
+      "id": 2,
+      "name": "Usuario 2",
+      "email": "usuario2@taskr.com",
+      "password": "usuario2"
+    },
+    {
+      "id": 3,
+      "name": "Usuario 3",
+      "email": "usuario3@taskr.com",
+      "password": "usuario3"
+    },
+    {
+      "id": 4,
+      "name": "Usuario 4",
+      "email": "usuario4@taskr.com",
+      "password": "usuario4"
+    },
+    {
+      "id": 5,
+      "name": "Usuario 5",
+      "email": "usuario5@taskr.com",
+      "password": "usuario5"
+    },
+    {
+      "email": "usuario6@taskr.com",
+      "password": "usuario6",
+      "confirmPassword": "usuario6",
+      "name": "Usuario 6",
+      "id": 531.9554197608887
+    }
+  ]
+}

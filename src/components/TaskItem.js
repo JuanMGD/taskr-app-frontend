@@ -16,6 +16,7 @@ import {
 import UserTag from "./UserTag";
 
 const TaskItem = ({
+  task,
   showDate = false,
   showAssignedTo = false,
   showDescription = false,
@@ -23,8 +24,7 @@ const TaskItem = ({
   onPress,
 }) => {
   const theme = useSelector((state) => state.themes);
-
-  const [checked, setChecked] = useState(completed);
+  const [checked, setChecked] = useState(task.completed);
 
   return (
     <Box alignItems="center" maxW="96%">
@@ -39,7 +39,7 @@ const TaskItem = ({
         w={96}
         // shadow="3"
         bg={theme.colors.background}
-        py="2"
+        my="2"
       >
         <Box>
           <HStack alignItems="center" justifyContent="space-between">
@@ -67,7 +67,7 @@ const TaskItem = ({
               icon={<Icon as={<Feather name="check" />} />}
               accessibilityLabel="Checkbox to mark the task as complete"
             />
-            <VStack /* onPress={() => setChecked(!checked)} */>
+            <VStack w={showDate ? '25%' : '20%'} /* onPress={() => setChecked(!checked)} */>
               <Text
                 numberOfLines={1}
                 style={{
@@ -75,10 +75,12 @@ const TaskItem = ({
                   textDecorationLine: checked ? "line-through" : "none",
                   fontWeight: checked ? "500" : "regular",
                   textDecorationColor: theme.colors.foreground,
-                  maxWidth: "95%",
+                  // textAlign: 'justify',
+                  // maxWidth: "95%",
+                  // width: "95%"
                 }}
               >
-                UX Research
+                {task.title}
               </Text>
               {showDate && (
                 <Text style={{ color: theme.colors.supportText, fontSize: 12 }}>
@@ -89,19 +91,20 @@ const TaskItem = ({
             {showDescription && (
               <Text
                 numberOfLines={1}
-                style={{ color: theme.colors.supportText, maxWidth: "30%", /* marginTop: 8  */ }}
+                style={{ color: theme.colors.supportText, width: "30%", /* textAlign: 'justify', maxWidth: "30%", marginTop: 8  */ }}
               >
-                Lorem ipsum dolor
+                {task.description}
               </Text>
             )}
             {showAssignedTo && (
-              <VStack maxWidth='30%' space={0.5}>
+              <VStack w='30%' maxWidth='30%' space={0.5}>
                 <Text style={{ color: theme.colors.supportText, fontSize: 12 }}>
                   Responsable
                 </Text>
-                <UserTag />
+                <UserTag name={task.assignedTo.name} />
               </VStack>
             )}
+            {/* <Spacer/> */}
             <Badge
               m={1}
               colorScheme={checked ? "success" : "warning"}

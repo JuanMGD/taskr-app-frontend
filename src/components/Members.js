@@ -4,7 +4,17 @@ import { Avatar, VStack } from "native-base";
 
 // import { light as theme } from "../themes";
 
-const Members = ({ size = "md", showTitle = true }) => {
+const Members = ({
+  size = "md",
+  showTitle = true,
+  members = [
+    {
+      id: 1,
+      name: "Nombre usuario",
+      email: "usuario@taskr.com",
+    },
+  ],
+}) => {
   const theme = useSelector((state) => state.themes);
 
   return (
@@ -29,12 +39,28 @@ const Members = ({ size = "md", showTitle = true }) => {
           size: size,
           borderColor: theme.colors.background,
           bgColor: theme.colors.secondary,
+          // color: theme.colors.primary
           //   ml: -3,
           //   bg: theme.colors.secondary
         }}
         max={3}
       >
-        <Avatar
+        {members.map((member) => (
+          <Avatar
+            key={`member-${member.id}`}
+            // color={theme.background}
+            source={{
+              uri: member?.photo ?? ''
+              // uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+            }}
+          >
+            {member.name
+              .split(" ")
+              .map((n, i) => (i < 2 ? n[0].toUpperCase() : ""))
+              .join(" ")}
+          </Avatar>
+        ))}
+        {/* <Avatar
           key={`member${1}`}
           source={{
             uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
@@ -97,7 +123,7 @@ const Members = ({ size = "md", showTitle = true }) => {
           }}
         >
           TS
-        </Avatar>
+        </Avatar> */}
       </Avatar.Group>
     </VStack>
   );

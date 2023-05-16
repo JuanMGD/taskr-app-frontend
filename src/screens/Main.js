@@ -5,12 +5,12 @@ import Home from "./Home";
 import Teams from "./Teams";
 import Projects from "./Projects";
 import DailyTasks from "./DailyTasks";
-import Details from "./Details";
+// import Details from "./Details";
 import TabBar from "../components/TabBar";
-import LogoTitle from "../components/LogoTitle";
-import UserTag from "../components/UserTag";
-import { Button } from "react-native";
-import Header from "../components/Header";
+// import LogoTitle from "../components/LogoTitle";
+// import UserTag from "../components/UserTag";
+// import { Button } from "react-native";
+// import Header from "../components/Header";
 import Feather from "@expo/vector-icons/Feather";
 
 const Tab = createBottomTabNavigator();

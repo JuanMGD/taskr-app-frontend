@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useGetProjectsQuery } from "../api/apiSlice";
 import { HStack, VStack } from "native-base";
 import { View, StatusBar, Text, ScrollView } from "react-native";
 import OverviewCard from "../components/OverviewCard";
@@ -8,8 +9,10 @@ import Header from "../components/Header";
 
 function Projects({ navigation }) {
   const theme = useSelector((state) => state.themes);
+  // const projects = useSelector((state) => state.projects);
+  const { data: projects, isSuccess } = useGetProjectsQuery();
 
-  const data = ["1", "2", "3", "4", "5", "6", "7"];
+  // const data = ["1", "2", "3", "4", "5", "6", "7"];
 
   return (
     <>
@@ -41,16 +44,21 @@ function Projects({ navigation }) {
           >
             Todos los proyectos
           </Text>
-          {data.map((item) => (
-            <OverviewCard
-              progress={90}
-              title="Proyecto 1"
-              onPress={() => navigation.navigate("ProjectDetails")}
-              description={
-                "Unlock powerfull time-saving tools for creating email delivery and collecting marketing data"
-              }
-            />
-          ))}
+          {isSuccess &&
+            projects.map((project) => (
+              <OverviewCard
+                progress={project.progress}
+                title={project.name}
+                members={project.members}
+                description={project.description}
+                onPress={() =>
+                  navigation.navigate("ProjectDetails", { project })
+                }
+                // description={
+                //   "Unlock powerfull time-saving tools for creating email delivery and collecting marketing data"
+                // }
+              />
+            ))}
         </VStack>
         {/* <TaskItem showDate={true} showAssignedTo={true} />
           <TaskItem showDescription={true} />

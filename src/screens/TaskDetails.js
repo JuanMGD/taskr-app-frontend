@@ -17,9 +17,10 @@ import UserTag from "../components/UserTag";
 import Feather from "@expo/vector-icons/Feather";
 import Header from "../components/Header";
 
-const TaskDetails = ({ navigation }) => {
+const TaskDetails = ({ route, navigation }) => {
   const theme = useSelector((state) => state.themes);
-  const [checked, setChecked] = useState(false);
+  const { task } = route.params;
+  const [checked, setChecked] = useState(task.completed);
 
   return (
     <>
@@ -39,7 +40,7 @@ const TaskDetails = ({ navigation }) => {
         }}
       >
         <VStack space={4}>
-          <HStack w={96} alignItems="flex-start" justifyContent="space-between">
+          <HStack w="92%" alignItems="flex-start" justifyContent="space-between">
             <Checkbox
               size="lg"
               // value="one"
@@ -78,15 +79,15 @@ const TaskDetails = ({ navigation }) => {
                 width: "90%",
               }}
             >
-              Desarrollo de la estructura de la base de datos
+              {task.title}
             </Text>
           </HStack>
-          <HStack w={96} space={5}>
+          <HStack w="92%" /* ml={3} */ space={5}>
             <VStack space={2}>
               <Text style={{ color: theme.colors.supportText }}>
                 Responsable
               </Text>
-              <UserTag size="md" />
+              <UserTag name={task.assignedTo.name} size="md" />
             </VStack>
             <Spacer />
             <Badge
@@ -98,16 +99,23 @@ const TaskDetails = ({ navigation }) => {
               {checked ? "Completado" : "En progreso"}
             </Badge>
           </HStack>
-          <VStack w={96} space={2}>
+          <VStack w="92%" /* ml={3} */>
             <Text style={{ color: theme.colors.supportText }}>Descripción</Text>
-            <Text style={{ color: theme.colors.foreground, fontSize: 16 }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+            <Text
+              style={{
+                color: theme.colors.foreground,
+                fontSize: 16,
+                textAlign: "justify",
+              }}
+            >
+              {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
               saepe, impedit accusamus delectus vero architecto excepturi
               blanditiis corrupti nesciunt nih rutrum mollis libero, at aliquam
-              mauris laoreet quis. Phasellus eget enim.
+              mauris laoreet quis. Phasellus eget enim. */}
+              {task.description}
             </Text>
           </VStack>
-          <VStack w={96} space={2}>
+          <VStack w="92%" /* ml={3} */>
             <Text style={{ color: theme.colors.supportText }}>
               Fecha límite
             </Text>
@@ -130,8 +138,10 @@ const TaskDetails = ({ navigation }) => {
                 placeholderTextColor={theme.colors.supportText}
                 borderColor={theme.colors.secondary}
                 color={theme.colors.foreground}
+                defaultValue={task.notes}
                 // h={200}
                 // maxW="300"
+                w="100%"
                 _focus={{
                   borderColor: theme.colors.primary,
                   bg: theme.colors.backgroud,
